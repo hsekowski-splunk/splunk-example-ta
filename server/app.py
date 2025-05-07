@@ -11,11 +11,8 @@ all_events = [{"id": i, "event": f"Event {i}"} for i in range(1, 101)]
 
 
 # Mock data for demonstration replace it with actual data retrieval logic
-def get_mocked_events(page_num: int, per_page: int):
-    return [
-        {"id": i, "event": f"Event {i}"}
-        for i in range(page_num * per_page, (page_num + 1) * per_page)
-    ]
+def get_mocked_events(start_id: int, stop_id: int):
+    return [{"id": i, "event": f"Event {i}"} for i in range(start_id, stop_id)]
 
 
 def _should_fail_with_server_error() -> bool:
@@ -24,11 +21,34 @@ def _should_fail_with_server_error() -> bool:
     return False
 
 
-@app.route("/events")
-def events():
+# Global variable to store the special event
+special_event = None
+
+
+@app.route("/events", methods=["POST"])
+def store_special_event():
+    global special_event
+
     # API key validation
     api_key = request.headers.get("API-Key")
+    if api_key != API_KEY:
+        return "Unauthorized", 401
 
+    # Parse the raw text payload
+    event_data = request.data.decode("utf-8").strip()
+    if not event_data:
+        return "Invalid request payload", 400
+    else:
+        special_event = event_data
+        return "Special event stored", 201
+
+
+@app.route("/events", methods=["GET"])
+def events():
+    global special_event
+
+    # API key validation
+    api_key = request.headers.get("API-Key")
     if api_key != API_KEY:
         return "Unauthorized", 401
 
@@ -40,7 +60,13 @@ def events():
     per_page = request.args.get("per_page", 10, type=int)
 
     # Calculate start and end indices for the items on the current page
-    paginated_events = get_mocked_events(page, per_page)
+    start_id, stop_id = page * per_page, (page + 1) * per_page
+    paginated_events = []
+    if special_event:
+        paginated_events.append({"id": start_id, "event": special_event})
+        start_id += 1
+        special_event = None
+    paginated_events += get_mocked_events(start_id, stop_id)
 
     total_events = len(paginated_events)
     total_pages = (total_events + per_page - 1) // per_page

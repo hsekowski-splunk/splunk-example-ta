@@ -2,6 +2,8 @@ name: splunk-example-ta
 services:
   server:
     container_name: server-example-ta
+    ports:
+      - "5000:5000"
     build:
       context: server
       dockerfile: Dockerfile
