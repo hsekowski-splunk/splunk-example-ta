@@ -42,9 +42,7 @@ def same_proxy_configs(
         proxy2.pop("proxy_password", None)
 
     res = proxy1 == proxy2
-    logger.debug(
-        f"same_proxy_configs: {res}\n\tproxy1: {proxy1}\n\tproxy2: {proxy2}"
-    )
+    logger.debug(f"same_proxy_configs: {res}\n\tproxy1: {proxy1}\n\tproxy2: {proxy2}")
 
     return res
 
@@ -92,9 +90,7 @@ def wait_for_proxy(
                 "seconds"
             )
             return True
-        logger.debug(
-            f"probe wait_for_proxy failed after {time.time() - start} seconds"
-        )
+        logger.debug(f"probe wait_for_proxy failed after {time.time() - start} seconds")
         yield PROBE_PROXY_CHECK_INTERVAL
 
     logger.debug(
@@ -141,8 +137,7 @@ def wait_for_loglevel(
             )
             return True
         logger.debug(
-            f"probe wait_for_loglevel failed after {time.time() - start} "
-            "seconds"
+            f"probe wait_for_loglevel failed after {time.time() - start} " "seconds"
         )
         yield PROBE_LOGLEVEL_CHECK_INTERVAL
 

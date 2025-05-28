@@ -15,9 +15,7 @@ from tests.ucc_modinput_functional.splunk.probes import (
 
 
 @attach(forge(set_loglevel, probe=wait_for_loglevel, loglevel="CRITICAL"))
-def test_valid_loglevel(
-    splunk_client: SplunkClient, wait_for_loglevel: bool
-) -> None:
+def test_valid_loglevel(splunk_client: SplunkClient, wait_for_loglevel: bool) -> None:
     assert wait_for_loglevel is True
 
 

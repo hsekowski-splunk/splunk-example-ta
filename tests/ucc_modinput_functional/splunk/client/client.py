@@ -6,7 +6,7 @@ from tests.ucc_modinput_functional.splunk.client.configuration import (
 )
 from tests.ucc_modinput_functional.splunk.client._managed_client import (
     ManagedSplunkClient,
-    SplunkApiError
+    SplunkApiError,
 )
 import swagger_client
 

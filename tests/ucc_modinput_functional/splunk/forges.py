@@ -348,8 +348,7 @@ def _account_input(
     name += f"_{test_id}"
     splunk_client.create_example(name, defaults.INPUT_INTERVAL, index, account)
     input_spl = (
-        f'search index={index} source="example://{name}" '
-        f"| where _time>{start_time}"
+        f'search index={index} source="example://{name}" ' f"| where _time>{start_time}"
     )
     # Take raw event into account when constructing the SPL; as an example:
     # extractions should be tested with pytest-splunk-addon

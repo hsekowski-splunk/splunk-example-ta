@@ -55,9 +55,7 @@ def test_accounts(
     assert actual_account is not None
     assert actual_account["api_key"] == defaults.ENCRYPTED_VALUE
 
-    actual_another_account = splunk_client.get_account(
-        another_account_config_name
-    )
+    actual_another_account = splunk_client.get_account(another_account_config_name)
     assert actual_another_account is not None
     assert actual_another_account["api_key"] == defaults.ENCRYPTED_VALUE
 
@@ -74,9 +72,7 @@ def test_accounts(
         # if more indexes are needed, they can be created as well
     ),
 )
-def test_indexes(
-    splunk_client: SplunkClient, another_account_index_name: str
-) -> None:
+def test_indexes(splunk_client: SplunkClient, another_account_index_name: str) -> None:
     splk_config = splunk_client.splunk_configuration
     actual_index = splk_config.get_index(
         another_account_index_name, client_service=splk_config.service
