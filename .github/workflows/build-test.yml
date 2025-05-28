@@ -138,7 +138,7 @@ jobs:
         run : |
           sudo chown -R runner:runner psa-output/Splunk_TA_Example/
           chmod u+rwx psa-output/Splunk_TA_Example/
-          pytest --splunk-type=external --splunk-app=package/ --splunk-data-generator=tests/knowledge --splunk-host=localhost --splunk-port=8089 --splunk-user=admin --splunk-password=Chang3d! --splunk-hec-token=4a8a737d-5452-426c-a6f7-106dca4e813f
+          pytest tests/knowledge --splunk-type=external --splunk-app=package/ --splunk-data-generator=tests/knowledge --splunk-host=localhost --splunk-port=8089 --splunk-user=admin --splunk-password=Chang3d! --splunk-hec-token=4a8a737d-5452-426c-a6f7-106dca4e813f
       - name: Set output if steps failed
         run: |
           echo "failed=${{ env.failed }}" >> $GITHUB_ENV
@@ -164,10 +164,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: Splunk_TA_Example
-      - run: |
-          ./scripts/run_locally.sh
-          until curl -Lsk "https://localhost:8088/services/collector/health" &>/dev/null ; do echo -n "Waiting for HEC-" && sleep 5 ; done
-        timeout-minutes: 5
+      - run: ./scripts/run_locally.sh
       - name: Set up virtual environment
         run: |
           python3 -m venv .venv
