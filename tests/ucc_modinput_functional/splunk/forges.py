@@ -245,7 +245,7 @@ def configure_http_proxy(
     splunk_client: SplunkClient, valid: bool = True
 ) -> Generator[Dict[str, object], None, None]:
     """
-    Forge method that prepares socks5 proxy configuration while using
+    Forge method that prepares http proxy configuration while using
     configure_proxy forge for actual proxy update.
 
     Based on test requirements, this forge can create a proxy with valid
