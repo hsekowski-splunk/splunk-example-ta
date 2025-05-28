@@ -4,7 +4,7 @@
 ```console
 ./scripts/run_locally.sh
 ```
-Splunk and vendor product will be setup as docker containers: splunk-example-ta and server-example-ta respictively. Splunk container exposes standard ports and have `admin` user defined with `Chang3d!` as password
+Splunk and vendor product will be setup as docker containers: splunk-example-ta and server-example-ta respectively. Splunk container exposes standard ports and have `admin` user defined with `Chang3d!` as password
 
 3. Make sure ucc-test-modinput is installed
 ```console
