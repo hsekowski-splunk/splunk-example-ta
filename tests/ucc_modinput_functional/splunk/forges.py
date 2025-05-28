@@ -143,7 +143,7 @@ def try_to_configure_proxy(
     except SplunkApiError as e:
         error = e.error_message
         status_code = e.status
-        logger.error(f"proxy error: {status_code},  {e.error_message}")
+        utils.logger.error(f"proxy error: {status_code},  {e.error_message}")
 
     yield dict(
         expected_proxy=proxy_configs,
